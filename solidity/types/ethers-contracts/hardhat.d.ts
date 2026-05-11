@@ -11,12 +11,20 @@ import * as Contracts from "./index.js";
 declare module "@nomicfoundation/hardhat-ethers/types" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
   getContractFactory(name: 'ComplianceModule', signerOrOptions?: ethers.Signer | FactoryOptions): Promise<Contracts.ComplianceModule__factory>
+getContractFactory(name: 'DvPSettlementManager', signerOrOptions?: ethers.Signer | FactoryOptions): Promise<Contracts.DvPSettlementManager__factory>
+getContractFactory(name: 'HoldToken', signerOrOptions?: ethers.Signer | FactoryOptions): Promise<Contracts.HoldToken__factory>
 
   getContractAt(name: 'ComplianceModule', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.ComplianceModule>
+getContractAt(name: 'DvPSettlementManager', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.DvPSettlementManager>
+getContractAt(name: 'HoldToken', address: string | ethers.Addressable, signer?: ethers.Signer): Promise<Contracts.HoldToken>
 
   deployContract(name: 'ComplianceModule', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ComplianceModule>
+deployContract(name: 'DvPSettlementManager', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.DvPSettlementManager>
+deployContract(name: 'HoldToken', signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.HoldToken>
 
   deployContract(name: 'ComplianceModule', args: any[], signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.ComplianceModule>
+deployContract(name: 'DvPSettlementManager', args: any[], signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.DvPSettlementManager>
+deployContract(name: 'HoldToken', args: any[], signerOrOptions?: ethers.Signer | DeployContractOptions): Promise<Contracts.HoldToken>
 
     // default types
     getContractFactory(

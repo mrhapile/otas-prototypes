@@ -2,5 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { ComplianceModule } from './ComplianceModule.js';
+export type { DvPSettlementManager } from './DvPSettlementManager.js';
+export type { HoldToken } from './HoldToken.js';
 export * as factories from './factories/index.js';
 export { ComplianceModule__factory } from './factories/ComplianceModule__factory.js';
+export { DvPSettlementManager__factory } from './factories/DvPSettlementManager__factory.js';
+export { HoldToken__factory } from './factories/HoldToken__factory.js';

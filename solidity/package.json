@@ -7,7 +7,9 @@
     "clean": "rm -rf artifacts cache coverage typechain-types",
     "compile": "hardhat compile",
     "test": "hardhat test",
-    "test:compliance": "hardhat test test/ComplianceModule.test.js"
+    "test:compliance": "hardhat test test/ComplianceModule.test.js",
+    "test:hold": "hardhat test test/HoldToken.test.js",
+    "test:dvp": "hardhat test test/DvPSettlement.test.js"
   },
   "keywords": [],
   "author": "",
