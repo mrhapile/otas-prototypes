@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ComplianceMetadata",
+  "description": "Platform-agnostic compliance metadata schema for OTAS token primitives.",
+  "type": "object",
+  "required": ["lei", "isin", "jurisdiction", "investorCategory"],
+  "properties": {
+    "lei": {
+      "type": "string",
+      "pattern": "^[A-Z0-9]{20}$"
+    },
+    "isin": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}[A-Z0-9]{10}$"
+    },
+    "cfi": {
+      "type": "string",
+      "pattern": "^[A-Z]{6}$"
+    },
+    "jurisdiction": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "investorCategory": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "kycAttestationHash": {
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    },
+    "attestationExpiry": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "customRestrictionFlags": {
+      "type": "string"
+    }
+  }
+}

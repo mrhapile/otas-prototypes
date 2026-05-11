@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Hold",
+  "description": "Placeholder schema for the OTAS hold primitive. This will be expanded during Prototype 2.",
+  "type": "object",
+  "properties": {}
+}

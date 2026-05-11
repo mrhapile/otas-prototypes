@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DvPSettlement",
+  "description": "Placeholder schema for the OTAS delivery-versus-payment primitive. This will be expanded during Prototype 3.",
+  "type": "object",
+  "properties": {}
+}
