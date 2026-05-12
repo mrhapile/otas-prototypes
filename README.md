@@ -32,9 +32,9 @@ Based on a comparative survey of ERC-1400, ERC-3643, CMTAT, ERC-4626, Hyperledge
 | # | Prototype | Research Question | Status |
 |---|-----------|-------------------|--------|
 | 1 | `ComplianceModule.sol` | Can a single schema satisfy ERC-3643, CMTAT, and ISO 20022 simultaneously? | ✅ Complete |
-| 2 | `HoldToken.sol` | Can one hold interface serve both CCP margin holds and DvP settlement holds? | 🔧 In Progress |
-| 3 | `DvPSettlementManager.sol` | What is the minimal on-chain DvP interface, and does a compliance precondition break atomicity? | 📋 Planned |
-| 4 | JSON Schema + Go Chaincode | Does a shared schema enable cross-platform interoperability without custom translation? | 📋 Planned |
+| 2 | `HoldToken.sol` | Can one hold interface serve both CCP margin holds and DvP settlement holds? | ✅ Complete |
+| 3 | `DvPSettlementManager.sol` | What is the minimal on-chain DvP interface, and does a compliance precondition break atomicity? | ✅ Complete |
+| 4 | JSON Schema + Go Chaincode | Does a shared schema enable cross-platform interoperability without custom translation? | ✅ Scaffolded |
 
 Prototypes 2 and 3 depend on Prototype 1 — the `DvPSettlementManager` calls `ComplianceModule.isEligible()` as a mandatory precondition before any tokens are locked. That composition is the point.
 
@@ -42,7 +42,7 @@ Prototypes 2 and 3 depend on Prototype 1 — the `DvPSettlementManager` calls `C
 
 ## Key Finding So Far
 
-Storing full `ComplianceMetadata` on-chain costs **119,633 gas**. Storing only the attestation hash costs **70,543 gas** — a difference of **49,090 gas** per attestation. This gap directly informs the design question of whether compliance metadata should live on-chain or be referenced via hash with off-chain resolution.
+Storing full `ComplianceMetadata` on-chain costs **119,645 gas**. Storing only the attestation hash costs **70,555 gas** — a difference of **49,090 gas** per attestation. This gap directly informs the design question of whether compliance metadata should live on-chain or be referenced via hash with off-chain resolution.
 
 Full findings in [`docs/FINDINGS.md`](docs/FINDINGS.md).
 
@@ -54,19 +54,27 @@ Full findings in [`docs/FINDINGS.md`](docs/FINDINGS.md).
 otas-prototypes/
 ├── schemas/                          # platform-agnostic data definitions
 │   ├── compliance-metadata.schema.json
-│   ├── hold.schema.json              # placeholder
-│   └── dvp-settlement.schema.json    # placeholder
+│   ├── hold.schema.json
+│   └── dvp-settlement.schema.json
 ├── solidity/                         # EVM reference implementations
 │   ├── contracts/
-│   │   └── ComplianceModule.sol
+│   │   ├── ComplianceModule.sol
+│   │   ├── HoldToken.sol
+│   │   └── DvPSettlementManager.sol
 │   ├── interfaces/
-│   │   └── IComplianceModule.sol
+│   │   ├── IComplianceModule.sol
+│   │   └── IHoldToken.sol
 │   ├── test/
-│   │   └── ComplianceModule.test.js
+│   │   ├── ComplianceModule.test.js
+│   │   ├── HoldToken.test.js
+│   │   └── DvPSettlement.test.js
 │   ├── hardhat.config.js
 │   └── package.json
-├── chaincode/                        # Hyperledger Fabric implementation (planned)
+├── chaincode/                        # Hyperledger Fabric implementation scaffold
+│   ├── go.mod
+│   ├── go.sum
 │   └── compliance/
+│       └── compliance.go
 └── docs/
     ├── FINDINGS.md
     └── RESEARCH_QUESTIONS.md
@@ -88,7 +96,7 @@ The architecture is intentionally layered:
 - Node.js 18+
 - npm
 
-### Run Prototype 1 tests
+### Run the Solidity test suite
 
 ```bash
 cd solidity
@@ -101,6 +109,13 @@ npm test
 ```bash
 cd solidity
 npm run compile
+```
+
+### Run the Go scaffold compile check
+
+```bash
+cd chaincode
+go test ./...
 ```
 
 ---

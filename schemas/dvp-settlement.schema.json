@@ -1,7 +1,61 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "DvPSettlement",
-  "description": "Placeholder schema for the OTAS delivery-versus-payment primitive. This will be expanded during Prototype 3.",
+  "description": "Platform-agnostic DvP settlement record schema for OTAS token primitives",
   "type": "object",
-  "properties": {}
+  "required": ["settlementId", "assetToken", "assetAmount", "paymentToken", "paymentAmount", "buyer", "seller", "expiry", "status"],
+  "properties": {
+    "settlementId": {
+      "type": "string",
+      "description": "Unique identifier for this settlement"
+    },
+    "assetToken": {
+      "type": "string",
+      "description": "Address or identifier of the token being sold"
+    },
+    "assetAmount": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Amount of asset tokens to be transferred to buyer"
+    },
+    "paymentToken": {
+      "type": "string",
+      "description": "Address or identifier of the token used for payment"
+    },
+    "paymentAmount": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Amount of payment tokens to be transferred to seller"
+    },
+    "buyer": {
+      "type": "string",
+      "description": "Address or identity receiving asset tokens on finalise"
+    },
+    "seller": {
+      "type": "string",
+      "description": "Address or identity receiving payment tokens on finalise"
+    },
+    "expiry": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Block number or timestamp after which abort is callable"
+    },
+    "holdId": {
+      "type": "string",
+      "description": "Reference to the Hold record locking seller asset tokens"
+    },
+    "buyerCommitted": {
+      "type": "boolean",
+      "description": "Whether buyer has called commit"
+    },
+    "sellerCommitted": {
+      "type": "boolean",
+      "description": "Whether seller has called commit"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Pending", "BothCommitted", "Finalised", "Aborted"],
+      "description": "Current lifecycle state of the settlement"
+    }
+  }
 }

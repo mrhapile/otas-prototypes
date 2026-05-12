@@ -1,7 +1,36 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Hold",
-  "description": "Placeholder schema for the OTAS hold primitive. This will be expanded during Prototype 2.",
+  "description": "Platform-agnostic hold record schema for OTAS token primitives",
   "type": "object",
-  "properties": {}
+  "required": ["holdId", "holder", "notary", "amount", "expiry", "status"],
+  "properties": {
+    "holdId": {
+      "type": "string",
+      "description": "Unique identifier for this hold — keccak256 hash in EVM, string key in Fabric"
+    },
+    "holder": {
+      "type": "string",
+      "description": "Address or identity of the token holder whose balance is locked"
+    },
+    "notary": {
+      "type": "string",
+      "description": "Address or identity authorised to execute or release this hold — CCP or SettlementManager"
+    },
+    "amount": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of tokens locked under this hold"
+    },
+    "expiry": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix timestamp after which the hold can be reclaimed by anyone"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Created", "Executed", "Released", "Reclaimed"],
+      "description": "Current lifecycle state of the hold"
+    }
+  }
 }
